@@ -1,29 +1,17 @@
-# README #
+# The Lift #
+The Lift is an educational task, meant to solve a problem optimally and teach me some Ruby.
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Task ###
+The task is to have a [Ruby](https://www.ruby-lang.org/en/) implementation of [The Lift](https://www.codewars.com/kata/58905bfa1decb981da00009e/ruby) problem.
 
-### What is this repository for? ###
+* A multi-floor building has a Lift in it.
+* People are queued on different floors waiting for the Lift.
+* Some people want to go up. Some people want to go down.
+* The floor they want to go to is represented by a number (i.e. when they enter the Lift this is the button they will press)
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Setup ###
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Windows 10 OS
+* [VS Code](https://code.visualstudio.com/) IDE
+* [Ruby Rubocop](https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop) Style Cop
+* [Ruby Solargraph](https://marketplace.visualstudio.com/items?itemName=castwide.solargraph) Intelisense
