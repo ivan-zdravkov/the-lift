@@ -23,4 +23,9 @@ elevator = Elevator.new(4, commander)
 
 elevator.move
 
+puts elevator.log
+
 return 0
+
+# Start The Debug Session
+# rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 C:\Users\IvanZ\OneDrive\Documents\the-lift\the-lift.rb

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Defines the Rules about which floors can call which directions
-module DisabledFloorsRules
+module DisabledFloors
   protected
 
   def disabled_floors_up() end
