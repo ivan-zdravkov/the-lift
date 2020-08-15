@@ -24,9 +24,6 @@ class Floor
   end
 
   def call_elevator
-    # If there is a next person waiting, call the elevator
-    unless @waiting.length.zero?
-      @commander.call_elevator(@number)
-    end
+    @commander.call(@number) unless @waiting.length.zero?
   end
 end

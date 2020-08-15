@@ -5,8 +5,7 @@ class Elevator
   def initialize(capacity, commander, floors)
     @capacity = capacity
     @floors = floors
-    @current_floor = floors[0]
-    @command = commander
+    @commander = commander
   end
 
   def move
