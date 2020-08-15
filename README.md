@@ -18,7 +18,8 @@ The task is to have a [Ruby](https://www.ruby-lang.org/en/) implementation of [T
 * [rdebug-ide](https://dev.to/dnamsons/ruby-debugging-in-vscode-3bkj) Ruby Debugger for VS Code 
 
 ### Notes ###
-[The Ruby Style Guide](https://github.com/rubocop-hq/ruby-style-guide) is actually a great resource to familiarize oneself with the language. Some other resources Nick recommended:
+Nick recommended some good resources for Ruby worth checking out.
+* [The Ruby Style Guide](https://github.com/rubocop-hq/ruby-style-guide)
 * [The Odin Project](https://www.theodinproject.com)
 * [The Odin Project's Ruby Programming Course](https://www.theodinproject.com/courses/ruby-programming)
 * [Sandi Metz's Website](https://sandimetz.com/)
