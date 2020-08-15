@@ -15,3 +15,7 @@ The task is to have a [Ruby](https://www.ruby-lang.org/en/) implementation of [T
 * [VS Code](https://code.visualstudio.com/) IDE
 * [Ruby Rubocop](https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop) Style Cop
 * [Ruby Solargraph](https://marketplace.visualstudio.com/items?itemName=castwide.solargraph) Intelisense
+* [rdebug-ide](https://dev.to/dnamsons/ruby-debugging-in-vscode-3bkj) Ruby Debugger for VS Code 
+
+### Notes ###
+[The Ruby Style Guide](https://github.com/rubocop-hq/ruby-style-guide) is actually a great resource to familiarize oneself with the language. Some other resources Nick recommended: [The Odin Project](https://www.theodinproject.com), [The Odin Project's Ruby Programming Course](https://www.theodinproject.com/courses/ruby-programming), [Sandi Metz's Website](https://sandimetz.com/).
