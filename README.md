@@ -19,7 +19,7 @@ The task is to have a [Ruby](https://www.ruby-lang.org/en/) implementation of [T
 
 ### Notes ###
 Nick recommended some good resources for Ruby worth checking out.
-* [The Ruby Style Guide](https://github.com/rubocop-hq/ruby-style-guide)
-* [The Odin Project](https://www.theodinproject.com)
-* [The Odin Project's Ruby Programming Course](https://www.theodinproject.com/courses/ruby-programming)
-* [Sandi Metz's Website](https://sandimetz.com/)
+* [The Ruby Style Guide](https://github.com/rubocop-hq/ruby-style-guide).
+* [The Odin Project](https://www.theodinproject.com).
+* [The Odin Project's Ruby Programming Course](https://www.theodinproject.com/courses/ruby-programming).
+* [Sandi Metz's Website](https://sandimetz.com/).
