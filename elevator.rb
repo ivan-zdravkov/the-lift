@@ -2,9 +2,8 @@
 
 # The Elevator will move up and down floors, have a Commander Interface to select a floor and pick up people along the way
 class Elevator
-  def initialize(capacity, commander, floors)
+  def initialize(capacity, commander)
     @capacity = capacity
-    @floors = floors
     @commander = commander
   end
 

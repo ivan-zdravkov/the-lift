@@ -2,9 +2,9 @@
 
 # The Floor will keep the people and have a Command Interface to call the Elevator
 class Floor
-  def initialize(number, commander, people)
+  attr_reader :number
+  def initialize(number, people)
     @number = number
-    @commander = commander
     @waiting = people
     @arrived = []
   end
@@ -21,9 +21,5 @@ class Floor
 
   def get_person(person)
     @arrived.push(person)
-  end
-
-  def call_elevator
-    @commander.call(@number) unless @waiting.length.zero?
   end
 end
