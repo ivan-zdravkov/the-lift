@@ -44,6 +44,12 @@ class Elevator
   end
 
   def load_people
-    true
+    while @people.length < @capacity
+      given_person = @commander.current_floor.give_person
+
+      break if given_person.nil?
+
+      @people.push(given_person)
+    end
   end
 end
