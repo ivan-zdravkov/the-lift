@@ -14,15 +14,14 @@ class Elevator
 
   def move
     until @commander.current_direction == Direction::NONE
-      if @commander.dock?
+      if @commander.dock?(@people)
         @commander.dock
       else
-        @commander.move_next_floor
-
+        @commander.move_next_floor(@people)
+        @commander.arrive
         unload_people
         load_people
       end
-
       log_write @commander.current_floor
     end
   end

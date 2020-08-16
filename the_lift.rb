@@ -21,6 +21,7 @@ floors = [
 commander = Commander.new(floors)
 elevator = Elevator.new(4, commander)
 
+commander.call_all
 elevator.move
 
 puts elevator.log

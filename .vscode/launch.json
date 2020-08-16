@@ -9,7 +9,7 @@
       "type": "Ruby",
       "request": "launch",
       "cwd": "${workspaceRoot}",
-      "program": "${file}"
+      "program": "the_lift.rb"
     }
   ]
 }

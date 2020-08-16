@@ -22,4 +22,12 @@ class Floor
   def get_person(person)
     @arrived.push(person)
   end
+
+  def anyone_up?
+    @waiting.any? { |person| person.destination_floor > @number }
+  end
+
+  def anyone_down?
+    @waiting.any? { |person| person.destination_floor < @number }
+  end
 end
