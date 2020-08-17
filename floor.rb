@@ -9,14 +9,12 @@ class Floor
     @arrived = []
   end
 
-  def give_person
-    if @waiting.length.positive?
-      person = @waiting.shift
-
-      person
+  def give_person(direction)
+    if direction == Direction::UP
+      give_person_up
+    elsif direction == Direction::DOWN
+      give_person_down
     end
-
-    nil
   end
 
   def get_person(person)
@@ -29,5 +27,23 @@ class Floor
 
   def anyone_down?
     @waiting.any? { |person| person.destination_floor < @number }
+  end
+
+  private 
+
+  def give_person_up
+    person = @waiting.select { |p| p.destination_floor > @number }.first
+
+    @waiting.delete(person) unless person.nil?
+
+    person
+  end
+
+  def give_person_down
+    person = @waiting.select { |p| p.destination_floor < @number }.first
+
+    @waiting.delete(person) unless person.nil?
+
+    person
   end
 end

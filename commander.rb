@@ -34,6 +34,14 @@ class Commander
     @calls_down[floor.number].called = true if floor.anyone_down? && @calls_down[floor.number].available
   end
 
+  def call_floor(floor_number)
+    if floor_number > @current_floor.number
+      @calls_up[floor_number].called = true if @calls_up[floor_number].available
+    elsif floor_number < @current_floor.number
+      @calls_down[floor_number].called = true if @calls_down[floor_number].available
+    end
+  end
+
   def move_next_floor(people)
     @previous_floor = @current_floor
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'enums/direction.rb'
+require_relative 'log'
 
 # The Elevator will move up and down floors, have a Commander to select a floor and pick up people along the way
 class Elevator
@@ -21,6 +22,7 @@ class Elevator
         @commander.arrive
         unload_people
         load_people
+        press_from_inside
       end
       log_write @commander.current_floor
     end
@@ -29,12 +31,13 @@ class Elevator
   private
 
   def log_write(floor)
-    @log.push(floor.number)
+    log = Log.new(floor.number, @people.map(&:destination_floor))
+    @log.push(log)
   end
 
   def leave_elevator(person)
     @people.delete(person)
-    @commander.current_floor.give_person(person)
+    @commander.current_floor.get_person(person)
   end
 
   def unload_people
@@ -45,11 +48,15 @@ class Elevator
 
   def load_people
     while @people.length < @capacity
-      given_person = @commander.current_floor.give_person
+      given_person = @commander.current_floor.give_person(@commander.current_direction)
 
       break if given_person.nil?
 
       @people.push(given_person)
     end
+  end
+
+  def press_from_inside
+    @people.each { |person| @commander.call_floor(person.destination_floor) }
   end
 end
