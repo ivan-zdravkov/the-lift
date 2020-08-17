@@ -45,7 +45,7 @@ class Commander
   def move_next_floor(people)
     @previous_floor = @current_floor
 
-    if change_direction?(people)
+    if revert_at_maximum?(people)
       @current_floor = revert_at_maximum
     else
       if @current_direction == Direction::UP
@@ -62,8 +62,14 @@ class Commander
     elsif @current_direction == Direction::DOWN
       @calls_down[@current_floor.number].called = false
     end
+  end
 
-    call(@previous_floor) # If anyone still left to travel on this previous, call the elevator again.
+  def call_from_floor_after_loaded
+    call(@previous_floor) if @previous_floor.anyone_waiting?
+  end
+
+  def press_from_inside(people)
+    people.each { |person| call_floor(person.destination_floor) }
   end
 
   def dock?(people)
@@ -78,11 +84,19 @@ class Commander
   private
 
   def next_called_floor
-    @calls_up.select { |call| call.called && call.floor.number > @current_floor.number }.first.floor
+    if @calls_up.any? { |call| call.called && call.floor.number > @current_floor.number }
+      @calls_up.select { |call| call.called && call.floor.number > @current_floor.number }.first&.floor
+    else
+      @calls_up.select(&:called).first&.floor
+    end
   end
 
   def previous_called_floor
-    @calls_down.select { |call| call.called && call.floor.number < @current_floor.number }.last.floor
+    if @calls_down.any? { |call| call.called && call.floor.number < @current_floor.number }
+      @calls_down.select { |call| call.called && call.floor.number < @current_floor.number }.last&.floor
+    else
+      @calls_down.select(&:called).last&.floor
+    end
   end
 
   def disabled_floors_up
@@ -103,14 +117,14 @@ class Commander
   end
 
   def calls_from_above
-    @calls_up.any? { |f| f.called && f.floor.number > @current_floor.number }
+    @calls_up.any?(&:called)
   end
 
   def calls_from_below
-    @calls_down.any? { |f| f.called && f.floor.number < @current_floor.number }
+    @calls_down.any?(&:called)
   end
 
-  def change_direction?(people)
+  def revert_at_maximum?(people)
     if @current_direction == Direction::UP
       people.none? && !calls_from_above
     elsif @current_direction == Direction::DOWN

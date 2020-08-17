@@ -18,21 +18,30 @@ class Elevator
       if @commander.dock?(@people)
         @commander.dock
       else
-        @commander.move_next_floor(@people)
-        @commander.arrive
-        unload_people
-        load_people
-        press_from_inside
+        move_a_floor
       end
-      log_write @commander.current_floor
+
+      log_write
     end
   end
 
   private
 
-  def log_write(floor)
-    log = Log.new(floor.number, @people.map(&:destination_floor))
-    @log.push(log)
+  def move_a_floor
+    @commander.move_next_floor(@people)
+    @commander.arrive
+    unload_people
+    load_people
+    @commander.call_from_floor_after_loaded
+    @commander.press_from_inside(@people)
+  end
+
+  def log_write
+    unless @commander.current_direction == Direction::NONE
+      log = Log.new(@commander.current_floor.number, @people.map(&:destination_floor))
+
+      @log.push(log)
+    end
   end
 
   def leave_elevator(person)
@@ -54,9 +63,5 @@ class Elevator
 
       @people.push(given_person)
     end
-  end
-
-  def press_from_inside
-    @people.each { |person| @commander.call_floor(person.destination_floor) }
   end
 end

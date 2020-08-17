@@ -29,7 +29,11 @@ class Floor
     @waiting.any? { |person| person.destination_floor < @number }
   end
 
-  private 
+  def anyone_waiting?
+    @waiting.any?
+  end
+
+  private
 
   def give_person_up
     person = @waiting.select { |p| p.destination_floor > @number }.first
