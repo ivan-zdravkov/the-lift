@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Defines the Directions the Elevator is moving on
-module ElevatorEngine
+# Defines the movements the Elevator does
+module Engine
   attr_reader :current_direction
   attr_reader :current_floor
 

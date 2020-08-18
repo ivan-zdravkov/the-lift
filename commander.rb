@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative 'modules/elevator_caller'
+require_relative 'modules/caller'
+require_relative 'modules/engine'
 require_relative 'modules/disabled_floors'
-require_relative 'modules/elevator_engine'
 require_relative 'enums/direction'
 require_relative 'button'
 
-# The Commander will command the Elevator and what floors to stop at
+# The Commander commands the Elevator via the ElevatorCaller and operates it via the ElevatorEngine
 class Commander
-  include ElevatorCaller
+  include Caller
+  include Engine
   include DisabledFloors
-  include ElevatorEngine
   attr_reader :current_direction
   attr_reader :current_floor
   attr_reader :previous_floor
@@ -127,7 +127,7 @@ class Commander
   def min_floor
     @calls_up.select(&:called).min { |a, b| a.floor.number <=> b.floor.number }.floor
   end
-  
+
   def revert_at_maximum?(people)
     if @current_direction == Direction::UP
       people.none? && !calls_from_above

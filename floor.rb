@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'modules/person_delivery'
+
 # The Floor will keep the people and have a Command Interface to call the Elevator
 class Floor
+  include PersonDelivery
   attr_reader :number
   attr_reader :waiting
   attr_reader :arrived

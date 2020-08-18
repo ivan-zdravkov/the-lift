@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Defines the Rules about which floors can call which directions
+# Defines which Floor Buttons are disabled
 module DisabledFloors
   protected
 
