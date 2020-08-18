@@ -4,6 +4,7 @@ require_relative 'elevator'
 require_relative 'floor'
 require_relative 'person'
 require_relative 'commander'
+require_relative 'drawer'
 
 floors = [
   Floor.new(0, []),
@@ -20,11 +21,16 @@ floors = [
 ]
 commander = Commander.new(floors)
 elevator = Elevator.new(4, commander)
+drawer = Drawer.new(floors)
+
+drawer.draw
 
 commander.call_all
 elevator.move
 
 elevator.log.each { |log| puts log.format }
+
+drawer.draw
 
 return 0
 

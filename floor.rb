@@ -3,6 +3,8 @@
 # The Floor will keep the people and have a Command Interface to call the Elevator
 class Floor
   attr_reader :number
+  attr_reader :waiting
+  attr_reader :arrived
   def initialize(number, people)
     @number = number
     @waiting = people
