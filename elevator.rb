@@ -37,11 +37,11 @@ class Elevator
   end
 
   def log_write
-    unless @commander.current_direction == Direction::NONE
-      log = Log.new(@commander.current_floor.number, @people.map(&:destination_floor))
+    return if @commander.current_direction == Direction::NONE
 
-      @log.push(log)
-    end
+    log = Log.new(@commander.current_floor.number, @people.map(&:destination_floor), @commander.current_direction)
+
+    @log.push(log)
   end
 
   def leave_elevator(person)

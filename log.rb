@@ -2,14 +2,21 @@
 
 # The Log we are putting on the console
 class Log
-  attr_reader :floor
-  attr_reader :people
-  def initialize(floor, people)
+  def initialize(floor, people, current_direction)
     @floor = floor
     @people = people
+    @current_direction = current_direction
   end
 
   def format
-    @floor.to_s + ', [' + @people.join(', ') + ']'
+    direction = 'O'
+
+    if @current_direction == Direction::UP
+      direction = '^'
+    elsif @current_direction == Direction::DOWN
+      direction = 'V'
+    end
+
+    direction + ' ' + @floor.to_s + ', [' + @people.join(', ') + ']'
   end
 end

@@ -84,19 +84,15 @@ class Commander
   private
 
   def next_called_floor
-    if @calls_up.any? { |call| call.called && call.floor.number > @current_floor.number }
-      @calls_up.select { |call| call.called && call.floor.number > @current_floor.number }.first&.floor
-    else
-      @calls_up.select(&:called).first&.floor
-    end
+    next_call = @calls_up.select { |call| call.called && call.floor.number > @current_floor.number }.first
+
+    next_call.nil? ? @calls_up.select(&:called).first&.floor : next_call.floor
   end
 
   def previous_called_floor
-    if @calls_down.any? { |call| call.called && call.floor.number < @current_floor.number }
-      @calls_down.select { |call| call.called && call.floor.number < @current_floor.number }.last&.floor
-    else
-      @calls_down.select(&:called).last&.floor
-    end
+    previous_call = @calls_down.select { |call| call.called && call.floor.number < @current_floor.number }.last
+
+    previous_call.nil? ? @calls_down.select(&:called).last&.floor : previous_call.floor
   end
 
   def disabled_floors_up
@@ -132,13 +128,21 @@ class Commander
     end
   end
 
+  def max_floor
+    @calls_down.select(&:called).max { |a, b| a.floor.number <=> b.floor.number }.floor
+  end
+
+  def min_floor
+    @calls_up.select(&:called).min { |a, b| a.floor.number <=> b.floor.number }.floor
+  end
+
   def revert_at_maximum
     if @current_direction == Direction::UP
       @current_direction = Direction::DOWN
-      @calls_down.select(&:called).max { |a, b| a.floor.number <=> b.floor.number }.floor
+      max_floor
     elsif @current_direction == Direction::DOWN
       @current_direction = Direction::UP
-      @calls_up.select(&:called).min { |a, b| a.floor.number <=> b.floor.number }.floor
+      min_floor
     end
   end
 end
