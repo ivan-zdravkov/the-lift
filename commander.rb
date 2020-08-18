@@ -4,7 +4,7 @@ require_relative 'modules/elevator_caller'
 require_relative 'modules/disabled_floors'
 require_relative 'modules/elevator_direction'
 require_relative 'enums/direction'
-require_relative 'caller'
+require_relative 'button'
 
 # The Commander will command the Elevator and what floors to stop at
 class Commander
@@ -22,7 +22,7 @@ class Commander
     @calls_up = []
     @calls_down = []
 
-    populate_floors(floors)
+    populate_buttons(floors)
   end
 
   def call_all
@@ -103,12 +103,12 @@ class Commander
     [number_of_floors]
   end
 
-  def populate_floors(floors)
+  def populate_buttons(floors)
     disabled_floors_down = disabled_floors_down(floors.length)
 
     floors.each do |floor|
-      @calls_up.push(Caller.new(floor, available: !disabled_floors_up.include?(floor)))
-      @calls_down.push(Caller.new(floor, available: !disabled_floors_down.include?(floor)))
+      @calls_up.push(Button.new(floor, available: !disabled_floors_up.include?(floor)))
+      @calls_down.push(Button.new(floor, available: !disabled_floors_down.include?(floor)))
     end
   end
 
