@@ -15,8 +15,8 @@ class Elevator
 
   def move
     until @commander.current_direction == Direction::NONE
-      if @commander.dock?(@people)
-        @commander.dock
+      if @commander.stop_moving?(@people)
+        @commander.stop_moving
       else
         move_a_floor
       end
@@ -28,12 +28,12 @@ class Elevator
   private
 
   def move_a_floor
-    @commander.move_next_floor(@people)
+    @commander.change_floor(@people)
     @commander.arrive
     unload_people
     load_people
-    @commander.call_from_floor_after_loaded
-    @commander.press_from_inside(@people)
+    @commander.call_from_the_outside
+    @commander.call_from_the_inside(@people)
   end
 
   def log_write

@@ -2,7 +2,7 @@
 
 require_relative 'modules/elevator_caller'
 require_relative 'modules/disabled_floors'
-require_relative 'modules/elevator_direction'
+require_relative 'modules/elevator_engine'
 require_relative 'enums/direction'
 require_relative 'button'
 
@@ -10,7 +10,7 @@ require_relative 'button'
 class Commander
   include ElevatorCaller
   include DisabledFloors
-  include ElevatorDirection
+  include ElevatorEngine
   attr_reader :current_direction
   attr_reader :current_floor
   attr_reader :previous_floor
@@ -29,20 +29,7 @@ class Commander
     @floors.each { |floor| call(floor) }
   end
 
-  def call(floor)
-    @calls_up[floor.number].called = true if floor.anyone_up? && @calls_up[floor.number].available
-    @calls_down[floor.number].called = true if floor.anyone_down? && @calls_down[floor.number].available
-  end
-
-  def call_floor(floor_number)
-    if floor_number > @current_floor.number
-      @calls_up[floor_number].called = true if @calls_up[floor_number].available
-    elsif floor_number < @current_floor.number
-      @calls_down[floor_number].called = true if @calls_down[floor_number].available
-    end
-  end
-
-  def move_next_floor(people)
+  def change_floor(people)
     @previous_floor = @current_floor
 
     if revert_at_maximum?(people)
@@ -64,24 +51,37 @@ class Commander
     end
   end
 
-  def call_from_floor_after_loaded
+  def call_from_the_outside
     call(@previous_floor) if @previous_floor.anyone_waiting?
   end
 
-  def press_from_inside(people)
+  def call_from_the_inside(people)
     people.each { |person| call_floor(person.destination_floor) }
   end
 
-  def dock?(people)
+  def stop_moving?(people)
     people.none? && !calls_from_above && !calls_from_below
   end
 
-  def dock
+  def stop_moving
     @current_floor = @floors[0]
     @current_direction = Direction::NONE
   end
 
   private
+
+  def call(floor)
+    @calls_up[floor.number].called = true if floor.anyone_up? && @calls_up[floor.number].available
+    @calls_down[floor.number].called = true if floor.anyone_down? && @calls_down[floor.number].available
+  end
+
+  def call_floor(number)
+    if number > @current_floor.number
+      @calls_up[number].called = true if @calls_up[number].available
+    elsif number < @current_floor.number
+      @calls_down[number].called = true if @calls_down[number].available
+    end
+  end
 
   def next_called_floor
     next_call = @calls_up.select { |call| call.called && call.floor.number > @current_floor.number }.first
@@ -120,20 +120,20 @@ class Commander
     @calls_down.any?(&:called)
   end
 
-  def revert_at_maximum?(people)
-    if @current_direction == Direction::UP
-      people.none? && !calls_from_above
-    elsif @current_direction == Direction::DOWN
-      people.none? && !calls_from_below
-    end
-  end
-
   def max_floor
     @calls_down.select(&:called).max { |a, b| a.floor.number <=> b.floor.number }.floor
   end
 
   def min_floor
     @calls_up.select(&:called).min { |a, b| a.floor.number <=> b.floor.number }.floor
+  end
+  
+  def revert_at_maximum?(people)
+    if @current_direction == Direction::UP
+      people.none? && !calls_from_above
+    elsif @current_direction == Direction::DOWN
+      people.none? && !calls_from_below
+    end
   end
 
   def revert_at_maximum
