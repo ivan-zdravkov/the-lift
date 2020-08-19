@@ -11,12 +11,14 @@ class Commander
   include Caller
   include Engine
   include DisabledFloors
+
   attr_reader :current_direction
   attr_reader :current_floor
   attr_reader :previous_floor
+
   def initialize(floors)
     @floors = floors
-    @current_floor = floors[0]
+    @current_floor = floors.first
     @previous_floor = nil
     @current_direction = Direction::UP
     @calls_up = []

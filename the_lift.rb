@@ -6,6 +6,7 @@ require_relative 'person'
 require_relative 'commander'
 require_relative 'drawer'
 
+capacity = 4
 floors = [
   Floor.new(0, []),
   Floor.new(1, [Person.new(6), Person.new(5), Person.new(2)]),
@@ -20,7 +21,7 @@ floors = [
   Floor.new(10, [Person.new(1), Person.new(4), Person.new(3), Person.new(2)])
 ]
 commander = Commander.new(floors)
-elevator = Elevator.new(4, commander)
+elevator = Elevator.new(capacity, commander)
 drawer = Drawer.new(floors)
 
 drawer.draw

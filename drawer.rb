@@ -1,10 +1,12 @@
+# frozen_string_literal: false
+
 FLOOR_SIZE = 25
 ELEVATOR_SIZE = 2
 PERSON_START_INDEX = 4
-WALL = '|'
-TILE = '-'
-BASEMENT_TILE = '='
-EMPTY = ' '
+WALL = '|'.freeze
+TILE = '-'.freeze
+BASEMENT_TILE = '='.freeze
+EMPTY = ' '.freeze
 
 # The Drawer will draw floors
 class Drawer
