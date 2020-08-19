@@ -27,6 +27,7 @@ drawer = Drawer.new(floors)
 drawer.draw
 
 commander.call_all
+elevator.initial_load
 elevator.move
 
 elevator.log.each { |log| puts log.format }

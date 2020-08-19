@@ -13,6 +13,14 @@ class Elevator
     @log = []
   end
 
+  def initial_load
+    @commander.arrive
+    load_people
+    @commander.call_from_the_inside(@people)
+    @commander.call_from_the_outside
+    log_write
+  end
+
   def move
     until @commander.current_direction == Direction::NONE
       if @commander.stop_moving?(@people)

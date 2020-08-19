@@ -17,6 +17,6 @@ class Log
       direction = 'V'
     end
 
-    direction + ' ' + @floor.to_s + ', [' + @people.join(', ') + ']'
+    "#{direction} #{@floor}, [#{@people.join(', ')}]"
   end
 end

@@ -41,18 +41,14 @@ class Floor
   private
 
   def give_person_up
-    person = @waiting.select { |p| p.destination_floor > @number }.first
-
+    person = @waiting.detect { |p| p.destination_floor > @number }
     @waiting.delete(person) unless person.nil?
-
     person
   end
 
   def give_person_down
-    person = @waiting.select { |p| p.destination_floor < @number }.first
-
+    person = @waiting.detect { |p| p.destination_floor < @number }
     @waiting.delete(person) unless person.nil?
-
     person
   end
 end

@@ -48,7 +48,6 @@ class Drawer
 
     floor_to_draw = draw_people(floor_to_draw, arrived_start_index, arrived)
     floor_to_draw = draw_people(floor_to_draw, waiting_start_index, waiting)
-
     floor_to_draw
   end
 
@@ -84,7 +83,5 @@ class Drawer
     basement
   end
 
-  def draw_ceiling
-    draw_basement
-  end
+  alias draw_ceiling draw_basement
 end

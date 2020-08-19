@@ -12,9 +12,7 @@ class Commander
   include Engine
   include DisabledFloors
 
-  attr_reader :current_direction
-  attr_reader :current_floor
-  attr_reader :previous_floor
+  attr_reader :current_direction, :current_floor, :previous_floor
 
   def initialize(floors)
     @floors = floors
@@ -54,7 +52,7 @@ class Commander
   end
 
   def call_from_the_outside
-    call(@previous_floor) if @previous_floor.anyone_waiting?
+    call(@previous_floor) if @previous_floor&.anyone_waiting?
   end
 
   def call_from_the_inside(people)
@@ -86,9 +84,9 @@ class Commander
   end
 
   def next_called_floor
-    next_call = @calls_up.select { |call| call.called && call.floor.number > @current_floor.number }.first
+    next_call = @calls_up.detect { |call| call.called && call.floor.number > @current_floor.number }
 
-    next_call.nil? ? @calls_up.select(&:called).first&.floor : next_call.floor
+    next_call.nil? ? @calls_up.detect(&:called)&.floor : next_call.floor
   end
 
   def previous_called_floor
