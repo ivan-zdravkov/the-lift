@@ -1,17 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'modules/caller'
-require_relative 'modules/engine'
-require_relative 'modules/disabled_floors'
 require_relative 'enums/direction'
 require_relative 'button'
 
 # The Commander commands the Elevator via the ElevatorCaller and operates it via the ElevatorEngine
 class Commander
-  include Caller
-  include Engine
-  include DisabledFloors
-
   attr_reader :current_direction, :current_floor, :previous_floor
 
   def initialize(floors)
@@ -33,7 +26,7 @@ class Commander
     @previous_floor = @current_floor
 
     if revert_at_maximum?(people)
-      @current_floor = revert_at_maximum
+      @current_direction, @current_floor = revert_at_maximum
     else
       if @current_direction == Direction::UP
         @current_floor = next_called_floor
@@ -136,11 +129,9 @@ class Commander
 
   def revert_at_maximum
     if @current_direction == Direction::UP
-      @current_direction = Direction::DOWN
-      max_floor
+      [Direction::DOWN, max_floor]
     elsif @current_direction == Direction::DOWN
-      @current_direction = Direction::UP
-      min_floor
+      [Direction::UP, min_floor]
     end
   end
 end
