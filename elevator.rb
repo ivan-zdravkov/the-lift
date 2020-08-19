@@ -45,7 +45,10 @@ class Elevator
   end
 
   def log_write
-    return if @commander.current_direction == Direction::NONE
+    if @commander.current_direction == Direction::NONE && @commander.previous_floor.number.zero?
+      @log.last.current_direction = Direction::NONE
+      return
+    end
 
     log = Log.new(@commander.current_floor.number, @people.map(&:destination_floor), @commander.current_direction)
 

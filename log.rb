@@ -2,6 +2,7 @@
 
 # The Log we are putting on the console
 class Log
+  attr_writer :current_direction
   def initialize(floor, people, current_direction)
     @floor = floor
     @people = people

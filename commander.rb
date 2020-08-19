@@ -64,7 +64,8 @@ class Commander
   end
 
   def stop_moving
-    @current_floor = @floors[0]
+    @previous_floor = @floors[@current_floor.number]
+    @current_floor = @floors.first
     @current_direction = Direction::NONE
   end
 
@@ -85,13 +86,11 @@ class Commander
 
   def next_called_floor
     next_call = @calls_up.detect { |call| call.called && call.floor.number > @current_floor.number }
-
     next_call.nil? ? @calls_up.detect(&:called)&.floor : next_call.floor
   end
 
   def previous_called_floor
     previous_call = @calls_down.select { |call| call.called && call.floor.number < @current_floor.number }.last
-
     previous_call.nil? ? @calls_down.select(&:called).last&.floor : previous_call.floor
   end
 
@@ -105,7 +104,6 @@ class Commander
 
   def populate_buttons(floors)
     disabled_floors_down = disabled_floors_down(floors.length)
-
     floors.each do |floor|
       @calls_up.push(Button.new(floor, available: !disabled_floors_up.include?(floor)))
       @calls_down.push(Button.new(floor, available: !disabled_floors_down.include?(floor)))
